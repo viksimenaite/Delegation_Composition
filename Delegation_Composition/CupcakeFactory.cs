@@ -4,10 +4,39 @@ using System.Text;
 
 namespace Delegation_Composition
 {
-    class CupcakeFactory
+    class CupcakeFactory: IDecorating, ISuitability
     {
+        private IDecorating decoratingRealisation;
+        private ISuitability suitabilityRealisation;
+
+        public CupcakeFactory(IDecorating decoratingRealisation, ISuitability suitabilityRealisation)
+        {
+            this.decoratingRealisation = decoratingRealisation;
+            this.suitabilityRealisation = suitabilityRealisation;
+        }
+
         private int averageWeightInGrams = 100;
-        double CountPricePerOne(FoodProduct product)
+
+        public double AddMarshmallows(FoodProduct product)
+        {
+            return decoratingRealisation.AddMarshmallows(product);
+        }
+
+        public double AddSprinkles(FoodProduct product)
+        {
+            return decoratingRealisation.AddSprinkles(product);
+        }
+
+        public bool IsSuitableForLactoseIntolerantPeople(FoodProduct product)
+        {
+            return suitabilityRealisation.IsSuitableForLactoseIntolerantPeople(product);
+        }
+
+        public bool IsSuitableForNonMeatEaters(FoodProduct product)
+        {
+            return suitabilityRealisation.IsSuitableForNonMeatEaters(product);
+        }
+        public double CountPricePerOne(FoodProduct product)
         {
             if (product.ContainsLactose)
             {
@@ -19,7 +48,7 @@ namespace Delegation_Composition
           }
         }
 
-        double SellRequiredAmount(FoodProduct product, int quantity)
+        public double SellRequiredAmount(FoodProduct product, int quantity)
         {
             if (quantity > 10)
             {

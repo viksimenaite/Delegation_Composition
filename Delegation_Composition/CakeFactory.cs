@@ -4,9 +4,26 @@ using System.Text;
 
 namespace Delegation_Composition
 {
-    class CakeFactory
+    class CakeFactory:ISuitability
     {
-        double CountPrice(FoodProduct product)
+        private ISuitability suitabilityRealisation;
+
+        public CakeFactory(ISuitability suitabilityRealisation)
+        {
+            this.suitabilityRealisation = suitabilityRealisation;
+        }
+
+        public bool IsSuitableForLactoseIntolerantPeople(FoodProduct product)
+        {
+            return suitabilityRealisation.IsSuitableForLactoseIntolerantPeople(product);
+        }
+
+        public bool IsSuitableForNonMeatEaters(FoodProduct product)
+        {
+            return suitabilityRealisation.IsSuitableForNonMeatEaters(product);
+        }
+
+        public double CountPrice(FoodProduct product)
         {
             if (product.IntendedFor == EatingHabits.Vegan)
             {
