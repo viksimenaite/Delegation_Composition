@@ -4,7 +4,8 @@ using System.Text;
 
 namespace Delegation_Composition
 {
-    interface Discounts
+    interface IDiscounts
     {
+        Double CountExpirationDiscount(FoodProduct product);
     }
 }
